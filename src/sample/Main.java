@@ -11,6 +11,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -78,13 +79,22 @@ public class Main extends Application {
         return new BarChart(xAxis, yAxis, barChartData, 25.0d);
     }
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        HBox box = new HBox(5);
-        box.getChildren().add(emg());
-        box.getChildren().add(gistogramma());
-        primaryStage.setScene(new Scene(box));
+        HBox hbox = new HBox(5);
+
+        VBox vbox1 = new VBox(5);
+        vbox1.getChildren().add(emg());
+        vbox1.getChildren().add(gistogramma());
+
+        VBox vbox2 = new VBox(5);
+        vbox2.getChildren().add(emg());
+        vbox2.getChildren().add(gistogramma());
+
+        hbox.getChildren().add(vbox1);
+        hbox.getChildren().add(vbox2);
+
+        primaryStage.setScene(new Scene(hbox));
         primaryStage.show();
     }
 
