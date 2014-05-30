@@ -156,21 +156,41 @@ public class Main extends Application {
             dataList.add(new StackedAreaChart.Data(i, list.get(i)));
         }
         ObservableList<StackedAreaChart.Series> areaChartData = FXCollections.observableArrayList(
-                new StackedAreaChart.Series("Series 1", dataList));
+                new StackedAreaChart.Series("ЭМГ", dataList));
 
-        NumberAxis xAxis = new NumberAxis("X Values", 0.0, 100.0, 2.0d);
-        NumberAxis yAxis = new NumberAxis("Y Values", -0.2d, 0.2d, 0.01d);
+        NumberAxis xAxis = new NumberAxis("Время, с", 0.0, 100.0, 2.0d);
+        NumberAxis yAxis = new NumberAxis("Амплитуда, мВ", -0.2d, 0.2d, 0.01d);
         return new StackedAreaChart(xAxis, yAxis, areaChartData);
     }
 
-    public Parent gistogramma() {
+    public Parent gistogramma1() {
         String[] years = {"2007", "2008", "2009"};
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setCategories(FXCollections.<String>observableArrayList(years));
-        NumberAxis yAxis = new NumberAxis("Units Sold", 0.0d, 3000.0d, 1000.0d);
+        NumberAxis yAxis = new NumberAxis("Количество отсчтетов", 0.0d, 3000.0d, 1000.0d);
         ObservableList<BarChart.Series> barChartData = FXCollections.observableArrayList(
                 new BarChart.Series("Apples", FXCollections.observableArrayList(
-                        new BarChart.Data(years[0], 567d),
+                        new BarChart.Data(years[0],88),
+                        new BarChart.Data(years[1], 1292d),
+                        new BarChart.Data(years[2], 1292d)
+                )),
+                new BarChart.Series("Lemons", FXCollections.observableArrayList(
+                        new BarChart.Data(years[0], 956),
+                        new BarChart.Data(years[1], 1665),
+                        new BarChart.Data(years[2], 2559)
+                ))
+        );
+        return new BarChart(xAxis, yAxis, barChartData, 25.0d);
+    }
+
+    public Parent gistogramma2() {
+        String[] years = {"2007", "2008", "2009"};
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setCategories(FXCollections.<String>observableArrayList(years));
+        NumberAxis yAxis = new NumberAxis("Количество отсчетов", 0.0d, 3000.0d, 1000.0d);
+        ObservableList<BarChart.Series> barChartData = FXCollections.observableArrayList(
+                new BarChart.Series("Apples", FXCollections.observableArrayList(
+                        new BarChart.Data(years[0],88),
                         new BarChart.Data(years[1], 1292d),
                         new BarChart.Data(years[2], 1292d)
                 )),
@@ -189,11 +209,11 @@ public class Main extends Application {
 
         VBox vbox1 = new VBox(5);
         vbox1.getChildren().add(emg());
-        vbox1.getChildren().add(gistogramma());
+        vbox1.getChildren().add(gistogramma1());
 
         VBox vbox2 = new VBox(5);
         vbox2.getChildren().add(emg());
-        vbox2.getChildren().add(gistogramma());
+        vbox2.getChildren().add(gistogramma2());
 
         hbox.getChildren().add(vbox1);
         hbox.getChildren().add(vbox2);
