@@ -12,7 +12,7 @@
   <children>
     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Button fx:id="button12" onAction="#change" layoutX="72.0" layoutY="80.0" mnemonicParsing="false" text="Button" />
+        <Button fx:id="button12" onAction="#change" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" text="Расчет" />
       </children>
     </Pane>
   </children>
