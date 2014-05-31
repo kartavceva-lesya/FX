@@ -8,16 +8,7 @@
             fx:controller="sample.Controller">
     <center>
         <VBox alignment="CENTER">
-            <HBox alignment="CENTER">
-                <AreaChart>
-                    <xAxis>
-                        <NumberAxis label="t"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="A"/>
-                    </yAxis>
-                </AreaChart>
-            </HBox>
+            <HBox alignment="CENTER" fx:id="graphBox"/>
             <HBox alignment="CENTER">
                 <BarChart>
                     <xAxis>

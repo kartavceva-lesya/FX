@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Utils {
-    private static List<Double> readFile(String fileName) {
+    public static List<Double> readFile(String fileName) {
         try {
             BufferedReader input = new BufferedReader(new FileReader(fileName));
             List<Double> list = new ArrayList<>();
@@ -86,35 +86,5 @@ public class Utils {
             barData[index] = barData[index] + 1;
         }
         return barData;
-    }
-
-    public static void main(String[] args) {
-        List<Double> list = readFile("D:/EMG/healthy_10s2_value.txt");
-        Logger.getAnonymousLogger().info(list.toString());
-
-        List<Double> filteredList = lowPassFilter(list);
-        Logger.getAnonymousLogger().info(filteredList.toString());
-
-        filteredList = derivative(filteredList);
-        Logger.getAnonymousLogger().info(filteredList.toString());
-
-        List<Integer> extrema = indexExtrema(filteredList);
-        Logger.getAnonymousLogger().info("extrema" + extrema.toString());
-
-        List<Integer> eDifference = extremaDifference(extrema);
-        Logger.getAnonymousLogger().info("EDiff " + eDifference.toString());
-
-        List<Double> amplitude = indexAmplitude(extrema, list);
-        Logger.getAnonymousLogger().info(amplitude.toString());
-
-        int[] barGraph = barGraph(eDifference);
-        for (int aBarGraph : barGraph) {
-            System.out.print("  " + aBarGraph);
-        }
-        System.out.println("");
-        int[] barGraph1 = barGraph(amplitude);
-        for (int aBarGraph1 : barGraph1) {
-            System.out.print(" amp " + aBarGraph1);
-        }
     }
 }
