@@ -21,16 +21,13 @@ public final class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         List<Double> list = Utils.readFile("D:/EMG/healthy_10s2_value.txt");
         graphBox.getChildren().add(createMyoGraph(list));
-    }
 
-    private void calculate() {
-//        List<Double> filteredList = lowPassFilter(list);
-//        filteredList = derivative(filteredList);
-//        List<Integer> extrema = indexExtrema(filteredList);
-//        List<Integer> eDifference = extremaDifference(extrema);
-//        List<Double> amplitude = indexAmplitude(extrema, list);
-//        int[] barGraph = barGraph(eDifference);
-//        int[] barGraph1 = barGraph(amplitude);
+        List<Double> filteredList = Utils.derivative(Utils.lowPassFilter(list));
+        List<Integer> extrema = Utils.indexExtrema(filteredList);
+        List<Integer> eDifference = Utils.extremaDifference(extrema);
+        List<Double> amplitude = Utils.indexAmplitude(extrema, list);
+        int[] barGraph = Utils.barGraph(eDifference);
+        int[] barGraph1 = Utils.barGraph(amplitude);
     }
 
     @SuppressWarnings("unchecked")

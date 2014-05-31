@@ -26,11 +26,11 @@ public class Utils {
         }
     }
 
-    private static List<Double> lowPassFilter(List<Double> list) {
+    public static List<Double> lowPassFilter(List<Double> list) {
         return filter(list, new double[]{-3.0 / 35.0, 12.0 / 35.0, 17.0 / 35.0, 12.0 / 35.0, -3.0 / 35.0});
     }
 
-    private static List<Double> derivative(List<Double> list) {
+    public static List<Double> derivative(List<Double> list) {
         return filter(list, new double[]{-0.2, -0.1, 0.0, 0.1, 0.2});
     }
 
@@ -49,7 +49,7 @@ public class Utils {
         return filtered;
     }
 
-    private static List<Integer> indexExtrema(List<Double> list) {
+    public static List<Integer> indexExtrema(List<Double> list) {
         List<Integer> extrema = new ArrayList<>();
         for (int i = 0; i < (list.size() - 1); i++) {
             if (((list.get(i) > 0) & (list.get(i + 1) < 0)) || ((list.get(i) < 0) & (list.get(i + 1) > 0))) {
@@ -59,7 +59,7 @@ public class Utils {
         return extrema;
     }
 
-    private static List<Integer> extremaDifference(List<Integer> list) {
+    public static List<Integer> extremaDifference(List<Integer> list) {
         List<Integer> eDifference = new ArrayList<>();
         for (int i = 0; i < (list.size() - 1); i++) {
             eDifference.add((list.get(i + 1)) - (list.get(i)));
@@ -67,7 +67,7 @@ public class Utils {
         return eDifference;
     }
 
-    private static List<Double> indexAmplitude(List<Integer> extrema, List<Double> listSignal) {
+    public static List<Double> indexAmplitude(List<Integer> extrema, List<Double> listSignal) {
         List<Double> amplitude = new ArrayList<>();
         for (int i = 0; i < (extrema.size() - 1); i++) {
             amplitude.add(listSignal.get(extrema.get(i)));
@@ -75,7 +75,7 @@ public class Utils {
         return amplitude;
     }
 
-    private static <T extends Number & Comparable<T>> int[] barGraph(List<T> list) {
+    public static <T extends Number & Comparable<T>> int[] barGraph(List<T> list) {
         T max = Collections.max(list);
         T min = Collections.min(list);
         int[] barData = new int[10];
