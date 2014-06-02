@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Utils {
+    private Utils() {
+        throw new AssertionError();
+    }
+
     public static List<Double> readFile(String fileName) {
         try {
             BufferedReader input = new BufferedReader(new FileReader(fileName));

@@ -1,16 +1,13 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -21,8 +18,6 @@ public final class Controller implements Initializable {
     private HBox graphBox;
     @FXML
     private HBox barChartBox;
-    @FXML
-    private HBox ChoiceBoxApp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,13 +28,9 @@ public final class Controller implements Initializable {
         List<Integer> extrema = Utils.indexExtrema(filteredList);
         List<Integer> eDifference = Utils.extremaDifference(extrema);
         List<Double> amplitude = Utils.indexAmplitude(extrema, list);
-        int[] barGraph = Utils.barGraph(eDifference);
 
-        barChartBox.getChildren().add(createBarGraph1(barGraph));
-        int[] barGraph1 = Utils.barGraph(amplitude);
-
-        barChartBox.getChildren().add(createBarGraph2(barGraph));
-        int[] barGraph2 = Utils.barGraph(eDifference);
+        barChartBox.getChildren().add(createBarGraph1(Utils.barGraph(eDifference)));
+        barChartBox.getChildren().add(createBarGraph2(Utils.barGraph(amplitude)));
     }
 
     @SuppressWarnings("unchecked")
@@ -113,21 +104,7 @@ public final class Controller implements Initializable {
         return new BarChart(xAxis, yAxis, barChartData, 25.0d);
     }
 
-    @SuppressWarnings("unchecked")
-    public class ChoiceBoxApp extends Application {
-
-        public Parent createContent() {
-            ChoiceBox cb = new ChoiceBox();
-            cb.getItems().addAll("Dog", "Cat", "Horse");
-            cb.getSelectionModel().selectFirst();
-            return cb;
-        }
-
-        @Override
-        public void start(Stage primaryStage) throws Exception {
-            primaryStage.setScene(new Scene(createContent()));
-            primaryStage.show();
-        }
-
+    public void openFile(ActionEvent actionEvent) {
+        System.out.println("open file");
     }
 }
