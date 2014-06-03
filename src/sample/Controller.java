@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.layout.HBox;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,10 +20,13 @@ public final class Controller implements Initializable {
     @FXML
     private HBox barChartBox;
 
+    Parent chart;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Double> list = Utils.readFile("D:/EMG/healthy_10s2_value.txt");
-        graphBox.getChildren().add(createMyoGraph(list));
+        chart = createMyoGraph(list);
+        graphBox.getChildren().add(chart);
 
         List<Double> filteredList = Utils.derivative(Utils.lowPassFilter(list));
         List<Integer> extrema = Utils.indexExtrema(filteredList);
@@ -105,6 +109,12 @@ public final class Controller implements Initializable {
     }
 
     public void openFile(ActionEvent actionEvent) {
-        System.out.println("open file");
+        JFileChooser chooser = new JFileChooser();
+        chooser.showDialog(new JFrame(), "Choose signal");
+        List<Double> list2 = Utils.readFile("D:/EMG/healthy_10s2_value.txt");
+//        List<Double> list = Utils.readFile(chooser.getSelectedFile().getPath());
+//        System.out.println(list.toArray());
+//        ch
+        System.out.println("open file:" + Main.file.getPath());
     }
 }
