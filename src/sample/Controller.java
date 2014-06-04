@@ -8,33 +8,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public final class Controller implements Initializable {
+    private Stage primaryStage;
     @FXML
     private HBox graphBox;
     @FXML
     private HBox barChartBox;
 
-    Parent chart;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Double> list = Utils.readFile("D:/EMG/healthy_10s2_value.txt");
-        chart = createMyoGraph(list);
-        graphBox.getChildren().add(chart);
-
-        List<Double> filteredList = Utils.derivative(Utils.lowPassFilter(list));
-        List<Integer> extrema = Utils.indexExtrema(filteredList);
-        List<Integer> eDifference = Utils.extremaDifference(extrema);
-        List<Double> amplitude = Utils.indexAmplitude(extrema, list);
-
-        barChartBox.getChildren().add(createBarGraph1(Utils.barGraph(eDifference)));
-        barChartBox.getChildren().add(createBarGraph2(Utils.barGraph(amplitude)));
     }
 
     @SuppressWarnings("unchecked")
@@ -109,12 +98,20 @@ public final class Controller implements Initializable {
     }
 
     public void openFile(ActionEvent actionEvent) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.showDialog(new JFrame(), "Choose signal");
-        List<Double> list2 = Utils.readFile("D:/EMG/healthy_10s2_value.txt");
-//        List<Double> list = Utils.readFile(chooser.getSelectedFile().getPath());
-//        System.out.println(list.toArray());
-//        ch
-        System.out.println("open file:" + Main.file.getPath());
+        FileChooser fileChooser = new FileChooser();
+        List<Double> list = Utils.readFile(fileChooser.showOpenDialog(primaryStage).getPath());
+        graphBox.getChildren().add(createMyoGraph(list));
+
+        List<Double> filteredList = Utils.derivative(Utils.lowPassFilter(list));
+        List<Integer> extrema = Utils.indexExtrema(filteredList);
+        List<Integer> eDifference = Utils.extremaDifference(extrema);
+        List<Double> amplitude = Utils.indexAmplitude(extrema, list);
+
+        barChartBox.getChildren().add(createBarGraph1(Utils.barGraph(eDifference)));
+        barChartBox.getChildren().add(createBarGraph2(Utils.barGraph(amplitude)));
+    }
+
+    public void setStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }
