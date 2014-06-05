@@ -25,7 +25,7 @@ public class Utils {
             }
             return list;
         } catch (IOException e) {
-            Logger.getAnonymousLogger().severe("File \"" + fileName + "\" not found");
+            Logger.getAnonymousLogger().severe(String.format("File %s not found", fileName));
             return Collections.emptyList();
         }
     }
